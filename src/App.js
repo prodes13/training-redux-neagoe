@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { connect } from 'react-redux';
+import { setNumberIncrease, setNumberDecrease } from './redux/actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -9,19 +10,16 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    numIncrease: (num) => dispatch(setNumberIncrease(num)),
+    numDecrease: (num) => dispatch(setNumberDecrease(num))
+  }
+}
+
 class App extends Component {
-
-  increment = () => {
-    this.props.dispatch({ type: 'INCREMENT' });
-  }
-
-  decrement = () => {
-    this.props.dispatch({ type: 'DECREMENT' });
-  }
-  
-
   render() {
-    const { number } = this.props;
+    const { number, numIncrease, numDecrease } = this.props;
     return (
       <div className="App">
         <header className="App-header">
@@ -30,9 +28,8 @@ class App extends Component {
             Edit <code>src/App.js</code> and save to reload.
           </p>
           <h2>{number}</h2>
-
-          <button onClick={this.decrement}>Click - </button>
-          <button onClick={this.increment}>Click + </button>
+          <button onClick={numIncrease}>Plus</button>
+          <button onClick={numDecrease}>Minus</button>
           <a
             className="App-link"
             href="https://reactjs.org"
@@ -47,4 +44,4 @@ class App extends Component {
   }
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
