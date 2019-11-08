@@ -4,7 +4,7 @@ const initialState = {
     number: 0
 };
 
-export const increaseNum = (state = initialState, action = {}) => {
+export const reducer = (state = initialState, action = {}) => {
     switch(action.type) {
         case INCREMENT:
             return {
